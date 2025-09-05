@@ -22,6 +22,8 @@ public class ProductsPage extends BasePage {
     @FindBy(xpath = "(//div[@class='pricebar'])//button")
     private List<WebElement> priceBarButtons;
 
+    
+
     public ProductsPage() {
         super();
         PageFactory.initElements(driver, this);
