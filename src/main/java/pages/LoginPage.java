@@ -34,6 +34,12 @@ public class LoginPage extends BasePage {
         click(loginButton, "Login Button");
     }
 
+    public void login(String usernameString, String passwordString) throws InterruptedException {
+        sendKeys(username, usernameString, "UserName");
+        sendKeys(password, passwordString, "Password");
+        click(loginButton, "Login Button");
+    }
+
     public String getCurrentUrl() {
         LoggerUtil.logInfo("Current URL:: " + driver.getCurrentUrl());
         return driver.getCurrentUrl();
