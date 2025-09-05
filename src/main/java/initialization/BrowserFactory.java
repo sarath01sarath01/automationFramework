@@ -38,7 +38,7 @@ public class BrowserFactory {
                 edgeOptions.addArguments("--start-maximized");
                 return new EdgeDriver(edgeOptions);
             default:
-                throw new IllegalArgumentException("Unsupported Browser::" + browserName);
+                throw new IllegalArgumentException("Unsupported Browser:: " + browserName);
         }
     }
 }
