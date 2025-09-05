@@ -1,0 +1,9 @@
+{
+  "login.username": "id:user-name",
+  "login.password": "id:password",
+  "login.button": "id:login-button",
+  "products.title": "xpath://span[@class='title']",
+  "products.addToCart": "xpath://button[contains(@id,'add-to-cart')]",
+  "cart.item": "css:.cart_item",
+  "cart.checkout": "id:checkout"
+}
