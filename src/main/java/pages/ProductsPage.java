@@ -16,7 +16,7 @@ public class ProductsPage extends BasePage {
     @FindBy(xpath="//div[@id='shopping_cart_container']//span")
     private WebElement cartHighlighter;
 
-    @FindBy(xpath="(//button[contains(text(), 'Remove')])[1]")
+    @FindBy(xpath="(//button[contains(text(), 'REMOVE')])[1]")
     private WebElement firstItemRemoveFromCartButton;
 
     @FindBy(xpath = "(//div[@class='pricebar'])//button")
@@ -35,7 +35,19 @@ public class ProductsPage extends BasePage {
         click(firstItemRemoveFromCartButton, "First Item Remove from Cart Button");
     }
 
-    public boolean verifyOneItemAddedToCart() {
+    public void addAllItemsToCart() {
+        for(int i=0;i<priceBarButtons.size();i++) {
+            click(priceBarButtons.get(i), "Item "+ i+ " add to cart button");
+        }
+    }
+
+    public void removeAllItemsFromCart() {
+        for(int i=0;i<priceBarButtons.size();i++) {
+            click(priceBarButtons.get(i), "Item "+ i+ " remove button");
+        }
+    }
+
+    public boolean isFirstItemAddedToCart() {
         LoggerUtil.logInfo(cartHighlighter.getCssValue("background-color"));
         if(getText(cartHighlighter, "Cart highlighter icon").equals("1") && cartHighlighter.getCssValue("background-color").equalsIgnoreCase("rgb(255, 37, 58)")) {
             return true;
@@ -44,9 +56,13 @@ public class ProductsPage extends BasePage {
         }
     }
 
-    public boolean verifyFirstItemRemovedFromCart() {
+    public boolean isFirstItemRemovedFromCart() {
         if(priceBarButtons.get(0).getText().equalsIgnoreCase("add to cart"))
             return true;
         return false;
+    }
+
+    public Integer getItemsCountOnCart() {
+        return Integer.parseInt(getText(cartHighlighter, "Shopping cart badge"));
     }
 }

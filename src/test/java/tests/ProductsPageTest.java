@@ -14,6 +14,8 @@ import utilities.LoggerUtil;
 
 public class ProductsPageTest {
 
+    ProductsPage productsPage;
+
     @BeforeTest
     public void setup() {
         WebDriver driver = DriverManager.getDriver();
@@ -25,6 +27,7 @@ public class ProductsPageTest {
         LoggerUtil.logInfo("Setting up for products page test.........");
         DriverManager.getDriver().manage().window().maximize();
         DriverManager.getDriver().manage().deleteAllCookies();
+        productsPage = new ProductsPage();
     }
 
     @AfterTest
@@ -33,20 +36,27 @@ public class ProductsPageTest {
         DriverManager.getDriver().quit();
     }
 
-    @Test
-    public void firstItemAddToCart() throws InterruptedException {
-        ProductsPage productsPage = new ProductsPage();
+    @Test(priority = 1)
+    public void verifyFirstItemAddedToCart() throws InterruptedException {
+
         productsPage.addFirstItemToCart();
-        Assert.assertTrue(productsPage.verifyOneItemAddedToCart(), "Item not added to cart");
+        Assert.assertTrue(productsPage.isFirstItemAddedToCart(), "First Item not added to cart");
+        productsPage.removeFirstItemFromCart();
     }
 
-    @Test
-    public void firstItemRemoveFromCart() throws InterruptedException {
+    @Test(priority = 2)
+    public void verifyFirstItemRemovedFromCart() throws InterruptedException {
         ProductsPage productsPage = new ProductsPage();
         productsPage.addFirstItemToCart();
-        Thread.sleep(1000);
         productsPage.removeFirstItemFromCart();
-        Assert.assertTrue(productsPage.verifyFirstItemRemovedFromCart(), "Item not removed from cart");
+        Assert.assertTrue(productsPage.isFirstItemRemovedFromCart(), "First Item not removed from cart");
     }
+
+    @Test(priority = 3)
+    public void verifyAllItemsAddedToCart() throws InterruptedException {
+        productsPage.addAllItemsToCart();
+        Assert.assertEquals(productsPage.getItemsCountOnCart(), 6, "All items not added to cart");
+    }
+
 
 }
